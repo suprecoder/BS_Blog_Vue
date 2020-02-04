@@ -179,7 +179,7 @@
                     .catch(error=>console.log(error));
             },
             handlewriter(val){
-                console.log('writer: '+this.blogs[val].writer)
+                this.$router.push({name:'personal',params:{username:this.blogs[val].writer}})
             }
         },
         beforeCreate() {

@@ -67,8 +67,8 @@ const routes = [
   },
   {
     name: 'personal',
-    path: '/personal',
-    component: () => import('../views/Personal.vue')
+    path: '/personal/:username',
+    component: () => import('../views/MyPersonal.vue')
   },
   {
     name: 'edit',

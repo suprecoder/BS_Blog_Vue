@@ -1,7 +1,7 @@
 <template>
     <div>
-        <el-form :model="form">
-            <el-form-item :label-width="formLabelWidth">
+        <el-form>
+            <el-form-item>
                 <el-upload
                         class="avatar-uploader"
                         action="http://localhost:8081/api/personal/upload"
@@ -10,16 +10,50 @@
                         :on-success="handleAvatarSuccess"
                         :key="fresh"
                         :before-upload="beforeAvatarUpload">
-                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                    <img v-if="img" :src="img" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
             </el-form-item>
         </el-form>
-        <el-avatar fit="fill" :src="img"></el-avatar>
     </div>
-
 </template>
-<style>
+
+<script>
+    export default {
+        name: "AvatarUpload",
+        data(){
+            return{
+                imageUrl: '',
+                fresh:1,
+                img:'http://localhost:8081/api/personal/getmyavatar',
+            }
+        },
+        methods:{
+            handleAvatarSuccess(res, file) {
+                //  this.imageUrl = URL.createObjectURL(file.raw);
+                this.img='http://localhost:8081/api/personal/getmyavatar'+'?'+new Date()
+
+            },
+            onSubmit() {
+                console.log('submit!');
+            },
+            beforeAvatarUpload(file) {
+                const isJPG = file.type === 'image/jpeg';
+                const isLt2M = file.size / 1024 / 1024 < 2;
+
+                if (!isJPG) {
+                    this.$message.error('上传头像图片只能是 JPG 格式!');
+                }
+                if (!isLt2M) {
+                    this.$message.error('上传头像图片大小不能超过 2MB!');
+                }
+                return isJPG && isLt2M;
+            }
+        }
+    }
+</script>
+
+<style scoped>
     .avatar-uploader .el-upload {
         border: 1px dashed #d9d9d9;
         border-radius: 6px;
@@ -44,35 +78,3 @@
         display: block;
     }
 </style>
-
-<script>
-    export default {
-        name: 'personal',
-        data() {
-            return {
-                imageUrl: '',
-                fresh:1,
-                img:'http://localhost:8081/api/personal/getmyavatar'
-            };
-        },
-        methods: {
-            handleAvatarSuccess(res, file) {
-              //  this.imageUrl = URL.createObjectURL(file.raw);
-                this.img='http://localhost:8081/api/personal/getmyavatar'+'?'+new Date()
-
-            },
-            beforeAvatarUpload(file) {
-                const isJPG = file.type === 'image/jpeg';
-                const isLt2M = file.size / 1024 / 1024 < 2;
-
-                if (!isJPG) {
-                    this.$message.error('上传头像图片只能是 JPG 格式!');
-                }
-                if (!isLt2M) {
-                    this.$message.error('上传头像图片大小不能超过 2MB!');
-                }
-                return isJPG && isLt2M;
-            }
-        }
-    }
-</script>

@@ -7,9 +7,13 @@
             </div>
             <div v-for="i in 8" class="card-margin" :key="i">
                 <div>
-                    <el-card v-if="blogs[i-1]!=null" class="box-card" style="width: 100%;padding-top: 1px;margin-bottom: 25px;">
-                        <div  class="text item" @click="handleToShowBlog(blogs[i-1].id)" style="cursor: pointer">
-                            <a style="font-size: larger;font-weight: bolder">{{blogs[i-1].title}}</a>
+                    <el-card v-if="blogs[i-1]!=null" class="box-card" style="width: 100%;padding-top: 1px;margin-bottom: 25px;position: relative">
+                        <div  class="text item" style="cursor: pointer">
+                            <a style="font-size: larger;font-weight: bolder" @click="handleToShowBlog(blogs[i-1].id)">{{blogs[i-1].title}}</a>
+                            <span  @click="handlewriter(i-1)" style="color: rgba(35,79,171,0.83);cursor: pointer;position: absolute;right:20px">
+                                <el-avatar :src="getavatar(blogs[i-1].id)" style="width: 18px;height: 18px;margin-bottom: -5px"></el-avatar>
+                                <span style="margin-left: 5px">{{blogs[i-1].writer}}</span>
+                            </span>
                             <el-divider class="el-divider-margin"></el-divider>
                             <p>{{blogs[i-1].summary }}</p>
                         </div>
@@ -54,6 +58,9 @@
             }
         },
         methods:{
+            getavatar(val){
+                return 'http://localhost:8081/api/personal/getavatar/'+val
+            },
             handleToShowBlog(id){
                 console.log(id)
                 this.$router.push({ name: 'showblog', params: { blogid: id }})
@@ -156,6 +163,9 @@
                 this.$axios.get("/mylike/countAll")
                     .then(response=>{this.count=response.data;})
                     .catch(error=>console.log(error));
+            },
+            handlewriter(val){
+                this.$router.push({name:'personal',params:{username:this.blogs[val].writer}})
             }
         },
         beforeCreate() {

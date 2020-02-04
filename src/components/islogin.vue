@@ -6,7 +6,8 @@
         name: "islogin",
         beforeCreate:function(){
             this.$axios.get("islogin").then(response=>{
-                if(response.status!=200 || response.data.data!='reject'){
+                console.log(response)
+                if(response.status==200 && response.data.data!='reject'){
                     this.$emit('C_getusername',response.data.data)
                 }
                 else{
@@ -14,7 +15,10 @@
                 }
             })
                 .catch(error=>{
-                    console.log("status:"+response.status)})
+
+                    this.$router.push("/login")
+                    console.log("status:"+error)})
+
 
         },
     }

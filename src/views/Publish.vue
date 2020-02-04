@@ -141,7 +141,7 @@
                             }
                             else{
                                 this.id=res.data
-                                this.$message("成功发布")
+                                this.$message.success("成功发布")
                             }
                         })
                 }

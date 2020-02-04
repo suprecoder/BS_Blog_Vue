@@ -63,6 +63,9 @@
                 console.log(id)
                 this.$router.push({ name: 'showblog', params: { blogid: id }})
             },
+            handlewriter(val){
+                this.$router.push({name:'personal',params:{username:this.blogs[val].writer}})
+            },
             handleCurrentChange(val){
                 this.$axios.get("getblogs",{params:{val:val}})
                     .then(response=>{
@@ -96,9 +99,6 @@
                     this.$axios.get("unfavourite",{params:{blogid:this.blogs[i].id}})
                     //this.like = Object.assign({}, this.like)
                 }
-            },
-            handlewriter(val){
-                console.log('writer: '+this.blogs[val].writer)
             }
         },
         beforeCreate() {

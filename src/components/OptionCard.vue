@@ -27,7 +27,7 @@
                 this.$router.push('mylike')
             },
             handlepersonal(){
-                this.$router.push('personal')
+                this.$router.push({name:'personal',params:{username:this.$cookies.get('username')}})
             },
         }
     }
