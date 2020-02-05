@@ -63,7 +63,7 @@
                 </span>
             </div>
         </div>
-        <el-button v-if="isme" style="margin-top: 20px" type="primary" @click="onSubmit">保存</el-button>
+        <el-button style="margin-top: 20px" type="primary" @click="onSubmit">{{buttontext}}</el-button>
 
         </el-card>
 
@@ -108,6 +108,7 @@
                     mydescribe:'',
                     address:'',
                     job:'',
+                    isfollow:false
                 },
                 stat:{
                     prefernum:'',
@@ -115,22 +116,29 @@
                     favouritenum:''
                 },
                 username:'',
-                isme:true
+                isme:true,
+                buttontext:'保存'
             };
         },
         created(){
-            let temp=this.$cookies.get('username')
+            let temp=this.$cookies.get('username'),flag=false
             if(this.$route.params.username && this.$route.params.username!=temp){
                 for(let i=0;i<this.m_visible.length;i++)
                     this.m_visible[i]=false
                 this.m_visible = Object.assign({}, this.m_visible)
                 this.isme=false;
                 temp=this.$route.params.username
+                flag=true
             }
             this.username=temp
             this.$axios.get("personal/getusermsg",{params:{username:temp}})
                 .then(res=>{
                     this.msg=res.data
+                    if(flag){
+                        if(this.msg.isfollow)
+                            this.buttontext='取消关注'
+                        else this.buttontext='点击关注'
+                    }
                 })
             this.$axios.get("personal/getmyget",{params:{username:temp}})
                 .then(res=>{
@@ -154,7 +162,29 @@
                     this.m_visible = Object.assign({}, this.m_visible)
                 }
             },
+            follow(){
+              this.$axios.get("/personal/follow",{params:{username:this.$route.params.username}})
+                  .then(res=>{
+                      if(res.data="ok"){
+                          if(this.buttontext=='点击关注') {
+                              this.buttontext = '取消关注'
+                              ++this.stat.follownum
+                          }
+                          else if(this.buttontext=='取消关注') {
+                              this.buttontext = '点击关注'
+                              --this.stat.follownum
+                          }
+                      }
+                      else
+                          this.$message.error("出错了，请再试一次")
+                  })
+
+            },
             onSubmit(){
+                if(this.buttontext!='保存'){
+                    this.follow();
+                    return;
+                }
                 let myReg=/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
                 if(this.msg.mail && !myReg.test(this.msg.mail)){
                     this.$message.error("邮箱格式不对!")

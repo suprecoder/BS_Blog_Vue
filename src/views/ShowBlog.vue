@@ -11,12 +11,14 @@
                 <!--        <div v-html="html_content"></div>-->
             </div>
         </div>
+        <Comment :blogid="this.$route.params.blogid"></Comment>
     </div>
 </template>
 
 <script>
     import islogin from '@/components/islogin.vue'
     import Nav from '@/components/Nav'
+    import Comment from '@/components/Comment'
     export default {
         name: "ShowBlog",
         data(){
@@ -29,7 +31,7 @@
         methods:{
         },
         components:{
-            Nav,islogin
+            Nav,islogin,Comment
         },
         created() {
             let blogid=this.$route.params.blogid
