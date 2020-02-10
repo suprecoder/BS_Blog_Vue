@@ -14,9 +14,9 @@
                 </el-input>
                 <el-button  type="primary" style="position:absolute;left: 55%;margin-top: 35px" @click="publish">发表</el-button>
             </span>
-            <h4 v-if="this.comments.length==0" style="position: relative;padding-top: 90px">评论区空空如也·_·</h4>
+            <h4 v-if="this.comments.length==0" style="position: relative;margin-top: 90px">评论区空空如也·_·</h4>
             <div style="position: relative;margin-top: 90px;width: 100%">
-                <div style="width: 100%;text-align: left;margin-top: 12px" v-for="comment in comments">
+                <div style="width: 100%;text-align: left;margin-top: 12px" v-for="comment in comments" :key="comments.id">
                     <el-divider></el-divider>
                     <span>
                         <el-avatar class="avatar" :src="getavatar(comment.username)"></el-avatar>
@@ -48,7 +48,7 @@
             }
         },
         props:['blogid'],
-        mounted(){
+        created(){
             this.$axios.get('comment/getcomment',{params:{blogid:this.blogid}})
                 .then(res=>{
                     this.comments=res.data
@@ -67,8 +67,14 @@
                 this.msg.comment=this.textarea
                 this.$axios.post('comment/publishcomment',this.msg)
                     .then(res=>{
+                        if(res.data=='ok')
+                            this.$axios.get('comment/getcomment', {params: {blogid: this.blogid}})
+                                .then(res2 => {
+                                    this.comments = res2.data
+                                })
 
                     })
+                this.textarea=''
             },
             handlecallback(val){
                 this.hint='@'+val+": "

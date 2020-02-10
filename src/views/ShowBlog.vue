@@ -3,15 +3,18 @@
         <islogin></islogin>
         <Nav style="position: fixed;z-index: 10;"></Nav>
         <div style="background-color: #fbfff8;padding-top: 90px;">
-            <h1>{{title}}</h1>
-            <h3 style="color: rgba(35,79,171,0.83);margin-left: 60%">{{writer}}</h3>
-            <el-divider></el-divider>
-            <div style="margin-left: 15%;margin-right: 15%">
-                <div class="previewContainer markdown-body" style="background-color: #fbfff8;" v-html="content_html"></div>
-                <!--        <div v-html="html_content"></div>-->
-            </div>
+            <el-card style="background-color: #fbfff8;border-color: black;width: 80%;margin-left: 10%">
+
+                <h1>{{title}}</h1>
+                <h3 style="color: rgba(35,79,171,0.83);margin-left: 60%;cursor: pointer" @click="handlewriter">{{writer}}</h3>
+                <el-divider></el-divider>
+                <div style="margin-left: 15%;margin-right: 15%">
+                    <div class="previewContainer markdown-body" style="background-color: #fbfff8;" v-html="content_html"></div>
+                    <!--        <div v-html="html_content"></div>-->
+                </div>
+                <Comment :blogid="this.$route.params.blogid"></Comment>
+            </el-card>
         </div>
-        <Comment :blogid="this.$route.params.blogid"></Comment>
     </div>
 </template>
 
@@ -29,6 +32,9 @@
             }
         },
         methods:{
+            handlewriter(){
+                this.$router.push({name:'personal',params:{username:this.writer}})
+            }
         },
         components:{
             Nav,islogin,Comment

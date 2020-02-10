@@ -33,23 +33,38 @@
             <div style="margin-top: 10px">
                 <span style="font-size: medium;">文章标签：</span>
                 <el-tag
-                        :key="tag"
                         v-for="tag in dynamicTags"
+                        :key="tag"
                         closable
                         :disable-transitions="false"
                         @close="handleClose(tag)">
                     {{tag}}
                 </el-tag>
-                <el-input
-                        class="input-new-tag"
-                        v-if="TagsinputVisible"
+                <span
+                        style="margin-left:10px"
+                        v-if="TagsinputVisible">
+
+                <el-autocomplete
                         v-model="TagsinputValue"
+                        :fetch-suggestions="querySearchAsync"
+                        placeholder="请输入内容"
+                        @select="handleSelect"
                         ref="saveTagInput"
                         size="small"
                         @keyup.enter.native="handleInputConfirm"
-                        @blur="handleInputConfirm"
-                >
-                </el-input>
+                ></el-autocomplete>
+                    <i style="cursor: pointer;color:green;margin-left: 5px" class="el-icon-success" @click="handleInputConfirm"></i>
+                </span>
+<!--                <el-input-->
+<!--                        class="input-new-tag"-->
+<!--                        v-if="TagsinputVisible"-->
+<!--                        v-model="TagsinputValue"-->
+<!--                        ref="saveTagInput"-->
+<!--                        size="small"-->
+<!--                        @keyup.enter.native="handleInputConfirm"-->
+<!--                        @blur="handleInputConfirm"-->
+<!--                >-->
+<!--                </el-input>-->
                 <el-button v-else-if="addTagButtonVisible" class="button-new-tag" size="small" @click="showInput"><span style="color: #61aeee;font-weight: bolder">+ 添加标签</span></el-button>
             </div>
 
@@ -60,6 +75,7 @@
             </div>
             <el-button type="success" @click="publishto" class="buttonsize" style="margin-top: 10px">发 布 博 客<i class="el-icon-upload el-icon--right"></i></el-button>
         </div>
+        <test></test>
     </div>
 </template>
 
@@ -67,11 +83,11 @@
     import islogin from '@/components/islogin.vue'
     import Nav from "@/components/Nav"
     import markdown from "@/components/Markdown-Editor"
-
+    import test from "@/components/test"
     export default {
         name: "Publish",
         components:{
-            Nav,markdown,islogin
+            Nav,markdown,islogin,test
         },
         data(){
             return{
@@ -158,7 +174,8 @@
                 });
             },
 
-            handleInputConfirm() {
+            handleInputConfirm(item) {
+                console.log("nnn")
                 let inputValue = this.TagsinputValue;
                 if (inputValue) {
                     let flag=true;
@@ -176,6 +193,31 @@
                 }
                 this.TagsinputVisible = false;
                 this.TagsinputValue = '';
+            },
+            querySearchAsync(queryString, cb) {
+                if(queryString==''){
+                    cb([{value:''}])
+                    return
+                }
+                this.$axios.get("publish/getrecommand",{params:{tagname:queryString}})
+                    .then(res=>{
+                        let result=[{}]
+                        let recommand=res.data
+                        for(let i=0;i<recommand.length;i++){
+                            result.push({value:recommand[i]})
+                        }
+                        cb(result)
+                    })
+            },
+            createStateFilter(queryString) {
+                return (state) => {
+                    return (state.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+                };
+            },
+            handleSelect(item) {
+                console.log('aaa')
+                this.TagsinputValue=item.value
+                this.handleInputConfirm(item)
             }
         }
     }
