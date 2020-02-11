@@ -2,7 +2,7 @@
     <div>
         <islogin></islogin>
         <Nav :activeIndex=navindex style="position: fixed;margin-top: 0px;z-index: 10;"></Nav>
-        <div style="background-color: #f6f6f6;">
+        <div style="background-color: #f6f6f6;padding-bottom: 20px">
             <el-row style="padding-top: 90px">
                 <el-col :span="17">
                     <MyFollowBlogList style="margin-top: 20px;margin-left: 14%"></MyFollowBlogList>
@@ -13,7 +13,10 @@
             </el-row>
         </div>
 
-
+        <div class="my-el-divider--horizontal">
+            <el-divider></el-divider>
+        </div>
+        <footer2></footer2>
 
 
     </div>
@@ -22,6 +25,7 @@
 <script>
     import islogin from '@/components/islogin.vue'
     import Nav from "@/components/Nav"
+    import footer2 from "@/components/Footer"
     import optioncard from "@/components/OptionCard"
     import MyFollowBlogList from "@/components/MyFollowBlogList"
     export default {
@@ -36,7 +40,7 @@
         },
 
         components:{
-            Nav,islogin,optioncard,MyFollowBlogList
+            Nav,islogin,optioncard,MyFollowBlogList,footer2
         }
     }
 </script>

@@ -32,6 +32,7 @@ const routes = [
   },
   {
     path: '/myblog',
+    name: 'myblog',
     component: () => import( '../views/MyBlog.vue')
   },
   {
@@ -74,6 +75,11 @@ const routes = [
     name: 'edit',
     path: '/edit/:blogid',
     component: () => import('../views/Publish.vue')
+  },
+  {
+    name: 'search',
+    path: '/search',
+    component: () => import('../views/MyBlog.vue')
   },
   {
     path: "*", // 此处需特别注意置于最底部

@@ -24,9 +24,11 @@
                 <el-col :span="11" style="text-align: left"><el-input
                         v-model="searchtext"
                         placeholder="Search"
-                        suffix-icon="el-icon-search"
+                        @keyup.enter.native="handleSearch"
                         style="padding-top: 10px;padding-bottom: 10px;width: 40%;"
-                        /></el-col>
+                >
+                    <i slot="suffix" class="el-input__icon el-icon-search" @click="handleSearch"></i>
+                </el-input></el-col>
 
 
                 <el-col :span="2" style="display:block;padding-top:20px;cursor: pointer">
@@ -60,11 +62,20 @@
             };
         },
         created(){
-          this.username=this.$cookies.get("username")
+            this.username=this.$cookies.get("username")
+            if(this.$route.path=='/search'){
+                this.navindex=0;
+            }
+
             //this.activeIndex='1';
         },
         props:{
             activeIndex:String
+        },
+        watch: {
+            $route (to, from) {
+                this.$router.go(0)
+            }
         },
         methods: {
             login(){
@@ -81,6 +92,9 @@
             },
             handlemyfollow(){
                 this.$router.push({path:'/myfollow'})
+            },
+            handleSearch(){
+                this.$router.push({name:'search',query:{querystring:this.searchtext}})
             },
             handleLogout(command){
                 if(command=='writeblog')

@@ -2,7 +2,7 @@
     <div>
         <islogin></islogin>
         <Nav :activeIndex=navindex style="position: fixed;margin-top: 0px;z-index: 10;"></Nav>
-        <div style="background-color: #f6f6f6;">
+        <div style="background-color: #f6f6f6;padding-bottom: 20px">
             <el-row style="padding-top: 90px">
                 <el-col :span="17">
                     <MyLikeBlogList style="margin-top: 20px;margin-left: 14%"></MyLikeBlogList>
@@ -13,7 +13,10 @@
             </el-row>
         </div>
 
-
+        <div class="my-el-divider--horizontal">
+            <el-divider></el-divider>
+        </div>
+        <footer2></footer2>
 
 
     </div>
@@ -24,6 +27,7 @@
     import Nav from "@/components/Nav"
     import optioncard from "@/components/OptionCard"
     import MyLikeBlogList from "@/components/MyLikeBlogList"
+    import footer2 from '@/components/Footer'
     export default {
         name: "MyLike",
         data(){
@@ -36,7 +40,7 @@
         },
 
         components:{
-            Nav,islogin,optioncard,MyLikeBlogList
+            Nav,islogin,optioncard,MyLikeBlogList,footer2
         }
     }
 </script>

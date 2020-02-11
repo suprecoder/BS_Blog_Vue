@@ -1,8 +1,8 @@
 <template>
     <div class="card-margin" style="position: relative">
-        <el-card class="box-card" style="width: 80%;margin-left: 10%;position: relative;min-height: 600px">
+        <el-card class="box-card" style="width: 80%;margin-left: 10%;position: relative;min-height: 600px;padding-bottom: 30px">
             <div slot="header" class="clearfix" style="height: 30px">
-                <span style="float: left;color: #409EFF;font-weight: bolder;font-size: larger">我的博客</span>
+                <span style="float: left;color: #409EFF;font-weight: bolder;font-size: larger">{{head}}</span>
                 <p style="float: right">共<span style="font-size: 25px;color: orangered;"> {{count}} </span>篇</p>
             </div>
             <div v-for="i in 8" class="card-margin" :key="i">
@@ -20,8 +20,8 @@
                             <span style="width:100%;font-size: small;color: gray;position: absolute">
                                 <span :class="{'orangered':blogs[i-1].like}" @click="handlelike(i-1)" style="cursor: pointer;"><i class="el-icon-s-opportunity"></i>喜欢</span>
                                 <span :class="{'yellow':blogs[i-1].favourite}" @click="handlefavourite(i-1)" style="cursor: pointer;"><i class="el-icon-star-on" style="margin-left: 20px"></i>收藏</span>
-                                <span  @click="handledit(i-1)" style="cursor: pointer;position: absolute;right:70px"><i class="el-icon-edit"></i>编辑</span>
-                                <span  @click="handledelete(i-1)" style="cursor: pointer; position: absolute;right:0px"><i class="el-icon-delete-solid"></i>删除</span>
+                                <span v-if="head=='我的博客'" @click="handledit(i-1)" style="cursor: pointer;position: absolute;right:70px"><i class="el-icon-edit"></i>编辑</span>
+                                <span v-if="head=='我的博客'" @click="handledelete(i-1)" style="cursor: pointer; position: absolute;right:0px"><i class="el-icon-delete-solid"></i>删除</span>
                             </span>
                         </div>
                     </el-card>
@@ -34,7 +34,7 @@
                     layout="prev, pager, next"
                     :total="count"
                     :current-page.sync="current_page"
-                    style="position: absolute;bottom: 0;width: 100%;"
+                    style="position: absolute;bottom: 20px;width: 100%;"
                     :page-size="8">
             </el-pagination>
         </el-card>
@@ -52,6 +52,7 @@
                 a:1,
                 blogs:[],
                 count:0,
+                head:'我的博客',
                 current_page:1
             }
         },
@@ -61,6 +62,16 @@
                 this.$router.push({ name: 'showblog', params: { blogid: id }})
             },
             handleCurrentChange(val){
+                if(this.$route.path=='/search'){
+                    this.head="搜索结果"
+                    this.$axios.get("/search",{params:{querystring:this.$route.query.querystring,val:val}})
+                        .then(response=>{
+                            this.blogs=response.data.blogs;
+                            this.count=response.data.num
+                        })
+                        .catch(error=>console.log(error));
+                    return
+                }
                 this.$axios.get("/myblog/getblogs",{params:{val:val}})
                     .then(response=>{
                         this.blogs=response.data;
@@ -172,7 +183,18 @@
                     .catch(error=>console.log(error));
             }
         },
-        beforeCreate() {
+        created() {
+            if(this.$route.path=='/search'){
+                this.head="搜索结果"
+                this.$axios.get("/search",{params:{querystring:this.$route.query.querystring,val:1}})
+                    .then(response=>{
+                        this.blogs=response.data.blogs;
+                        this.count=response.data.num
+                    })
+                    .catch(error=>console.log(error));
+                return
+            }
+            this.head="我的博客"
             this.$axios.get("/myblog/getblogs",{params:{val:1}})
                 .then(response=>{
                     this.blogs=response.data;

@@ -1,6 +1,6 @@
 <template>
     <div class="card-margin" style="position: relative">
-        <el-card class="box-card" style="width: 80%;margin-left: 10%;position: relative;min-height: 600px">
+        <el-card class="box-card" style="width: 80%;margin-left: 10%;position: relative;min-height: 600px;padding-bottom: 30px">
             <div slot="header" class="clearfix" style="height: 30px">
                 <span style="float: left;color: #409EFF;font-weight: bolder;font-size: larger">我的喜欢</span>
                 <p style="float: right">共<span style="font-size: 25px;color: orangered;"> {{count}} </span>篇</p>
@@ -36,7 +36,7 @@
                     layout="prev, pager, next"
                     :current-page.sync="current_page"
                     :total="count"
-                    style="position: absolute;bottom: 0;width: 100%;"
+                    style="position: absolute;bottom: 20px;width: 100%;"
                     :page-size="8">
             </el-pagination>
         </el-card>

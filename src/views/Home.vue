@@ -2,7 +2,7 @@
     <div class="home">
         <islogin></islogin>
         <Nav :activeIndex=navindex style="position: fixed;margin-top: 0px;z-index: 10;"></Nav>
-        <div style="background-color: #f6f6f6">
+        <div style="background-color: #f6f6f6;padding-bottom: 20px">
             <el-row style="padding-top: 90px">
                 <el-col :span="17">
                     <carousel  style="position: relative;margin-left: 14%"></carousel>
@@ -13,7 +13,10 @@
                 </el-col>
             </el-row>
         </div>
-        <footer2 style="width: 100%;height: 100px"></footer2>
+        <div class="my-el-divider--horizontal">
+            <el-divider></el-divider>
+        </div>
+        <footer2></footer2>
     </div>
 </template>
 
@@ -48,9 +51,7 @@
     }
 </script>
 <style>
-
-    .nav-style{
-        top:0;
-
+    .my-el-divider--horizontal /deep/ .el-divider--horizontal{
+        margin: 0 0;
     }
 </style>
