@@ -1,6 +1,5 @@
 <template>
     <div style="position: relative">
-        <islogin></islogin>
         <Nav style="position: fixed;z-index: 10;"></Nav>
         <div style="background-color: #fbfff8;padding-top: 90px;">
             <el-card style="background-color: #fbfff8;border-color: black;width: 80%;margin-left: 10%">
@@ -19,7 +18,6 @@
 </template>
 
 <script>
-    import islogin from '@/components/islogin.vue'
     import Nav from '@/components/Nav'
     import Comment from '@/components/Comment'
     export default {
@@ -37,7 +35,7 @@
             }
         },
         components:{
-            Nav,islogin,Comment
+            Nav,Comment
         },
         created() {
             let blogid=this.$route.params.blogid

@@ -1,6 +1,5 @@
 <template>
     <div>
-        <islogin></islogin>
         <Nav :activeIndex=navindex style="position: fixed;margin-top: 0px;z-index: 10;"></Nav>
         <div style="background-color: #f6f6f6;padding-bottom: 20px">
             <el-row style="padding-top: 90px">
@@ -23,7 +22,6 @@
 </template>
 
 <script>
-    import islogin from '@/components/islogin.vue'
     import Nav from "@/components/Nav"
     import footer2 from "@/components/Footer"
     import optioncard from "@/components/OptionCard"
@@ -40,7 +38,7 @@
         },
 
         components:{
-            Nav,islogin,optioncard,MyFollowBlogList,footer2
+            Nav,optioncard,MyFollowBlogList,footer2
         }
     }
 </script>

@@ -1,6 +1,5 @@
 <template>
     <div style="background-color: #ddd;text-align: left">
-        <islogin></islogin>
         <div>
             <Nav></Nav>
             <div style="width: 90%;margin-left: 5%">
@@ -80,14 +79,13 @@
 </template>
 
 <script>
-    import islogin from '@/components/islogin.vue'
     import Nav from "@/components/Nav"
     import markdown from "@/components/Markdown-Editor"
     import test from "@/components/test"
     export default {
         name: "Publish",
         components:{
-            Nav,markdown,islogin,test
+            Nav,markdown,test
         },
         data(){
             return{

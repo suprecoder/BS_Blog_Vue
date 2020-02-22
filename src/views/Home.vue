@@ -1,6 +1,5 @@
 <template>
     <div class="home">
-        <islogin></islogin>
         <Nav :activeIndex=navindex style="position: fixed;margin-top: 0px;z-index: 10;"></Nav>
         <div style="background-color: #f6f6f6;padding-bottom: 20px">
             <el-row style="padding-top: 90px">
@@ -22,7 +21,6 @@
 
 <script>
     // @ is an alias to /src
-    import islogin from '@/components/islogin.vue'
     import Nav from '@/components/Nav.vue'
     import BlogList from '@/components/BlogList'
     import Carousel from '@/components/Carousel'
@@ -45,7 +43,7 @@
         methods:{
         },
         components: {
-            Nav,BlogList,Carousel,islogin,footer2,optioncard
+            Nav,BlogList,Carousel,footer2,optioncard
         }
 
     }
