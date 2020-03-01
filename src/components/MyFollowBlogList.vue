@@ -2,7 +2,7 @@
     <div class="card-margin" style="position: relative">
         <el-card class="box-card" style="width: 80%;margin-left: 10%;position: relative;min-height: 600px;padding-bottom: 30px">
             <div slot="header" class="clearfix" style="height: 30px">
-                <span style="float: left;color: #409EFF;font-weight: bolder;font-size: larger">我的博客</span>
+                <span style="float: left;color: #409EFF;font-weight: bolder;font-size: larger">博客</span>
                 <p style="float: right">共<span style="font-size: 25px;color: orangered;"> {{count}} </span>篇</p>
             </div>
             <div v-for="i in 8" class="card-margin" :key="i">
@@ -61,7 +61,7 @@
         },
         methods:{
             getavatar(val){
-                return 'http://localhost:8081/api/personal/getavatar/'+val
+                return 'http://101.37.84.109:8081/api/personal/getavatar/'+val
             },
             handleToShowBlog(id){
                 console.log(id)
