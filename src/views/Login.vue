@@ -7,7 +7,7 @@
             <small v-if=istips style="color: red;">{{errortips}}</small><br/>
             <el-checkbox v-model="checked" @change="handlermbpsw" style="margin-right: 305px">记住密码</el-checkbox><br/><br/>
             <el-button size="medium" type="primary" plain @click="login">登录</el-button><br>
-            <span style="float:right;font-size: small;margin-right: 8px">还没有账号？<a href="/register">立即注册</a></span>
+            <span style="float:right;font-size: small;margin-right: 8px">还没有账号？<router-link :to="{path:'register'}">立即注册</router-link></span>
         </div>
     </div>
 </template>

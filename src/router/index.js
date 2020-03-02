@@ -98,7 +98,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   axios.get("islogin").then(response=>{
     console.log(response)
-    if(response.status==200 && response.data.data!='reject' || to.name=='login'){
+    if(response.status==200 && response.data.data!='reject' || to.name=='login' || to.path=='/register'){
       next()
     }
     else{
