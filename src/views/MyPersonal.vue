@@ -147,7 +147,7 @@
         },
         methods: {
             getavatar(val){
-                return 'http://localhost:8081/api/personal/getavatarbyname/'+this.$route.params.username
+                return 'http://101.37.84.109/api/personal/getavatarbyname/'+this.$route.params.username
             },
             handleMouseOver(i){
                 if(this.isme) {

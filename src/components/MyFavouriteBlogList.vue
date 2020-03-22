@@ -59,7 +59,7 @@
         },
         methods: {
             getavatar(val){
-                return 'http://localhost:8081/api/personal/getavatar/'+val
+                return 'http://101.37.84.109:8081/api/personal/getavatar/'+val
             },
             handleToShowBlog(id){
                 console.log(id)
