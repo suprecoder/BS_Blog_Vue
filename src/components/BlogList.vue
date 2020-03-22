@@ -18,7 +18,7 @@
                             <p @click="handleToShowBlog(blogs[i-1].id)">{{blogs[i-1].summary }}</p>
                         </div>
                         <div style="text-align: left;">
-                            <el-tag style="margin-right: 12px" size="mini" v-for="tag in blogs[i-1].tags">{{tag}}</el-tag>
+                            <el-tag style="margin-right: 12px;cursor: pointer" size="mini" v-for="tag in blogs[i-1].tags"@click="$router.push({name:'tags',params:{key:tag}})">{{tag}}</el-tag>
                         </div>
                         <div style="margin-top: 5px;text-align: left;font-size: small;color: gray;">
                             <span>
@@ -33,10 +33,11 @@
             <el-pagination
                     @current-change="handleCurrentChange"
                     background
-                    layout="prev, pager, next"
+                    layout="prev, pager, next,jumper"
                     :total="count"
                     style="position: absolute;bottom: 20px;width: 100%"
-                    :page-size="8">
+                    :page-size="8"
+                    :current-page.sync="current_page">
             </el-pagination>
         </el-card>
 
@@ -53,6 +54,7 @@
                 a:1,
                 blogs:[],
                 count:0,
+                current_page:1
             }
         },
         methods:{
@@ -75,6 +77,7 @@
                 this.$axios.get("countAll")
                     .then(response=>{this.count=response.data;})
                     .catch(error=>console.log(error));
+                this.$cookies.set("page",val)
             },
             handlelike(i){
                 if(this.blogs[i].like==false){
@@ -101,8 +104,13 @@
                 }
             }
         },
-        beforeCreate() {
-            this.$axios.get("getblogs",{params:{val:1}})
+        created() {
+            let val=1
+            if(this.$cookies.get("page")) {
+                val=parseInt(this.$cookies.get("page"))
+                this.current_page=val
+            }
+            this.$axios.get("getblogs",{params:{val:val}})
                 .then(response=>{
                     this.blogs=response.data;
                 })

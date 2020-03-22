@@ -35,7 +35,7 @@
                                 <p @click="handleToShowBlog(blogs[i-1].id)">{{blogs[i-1].summary }}</p>
                             </div>
                             <div style="text-align: left;">
-                                <el-tag style="margin-right: 12px" size="mini" v-for="tag in blogs[i-1].tags">{{tag}}</el-tag>
+                                <el-tag style="margin-right: 12px;cursor: pointer;" size="mini" v-for="tag in blogs[i-1].tags" @click="$router.push({name:'tags',params:{key:tag}})">{{tag}}</el-tag>
                             </div>
                             <div style="position: relative;width: 100%;text-align: left;margin-top: 5px">
                             <span style="width:100%;font-size: small;color: gray;position: absolute">
@@ -99,6 +99,7 @@
                 this.$axios.get("/myfollow/countAll")
                     .then(response=>{this.count=response.data;})
                     .catch(error=>console.log(error));
+                this.$cookies.set("followpage",val)
             },
             handlelike(i){
                 if(this.blogs[i].like==false){
@@ -206,8 +207,13 @@
                 this.$router.push({name:'personal',params:{username:this.blogs[val].writer}})
             }
         },
-        beforeCreate() {
-            this.$axios.get("/myfollow/getmyfollow",{params:{val:1}})
+        created() {
+            let val=1
+            if(this.$cookies.get("followpage")) {
+                val=parseInt(this.$cookies.get("followpage"))
+                this.current_page=val
+            }
+            this.$axios.get("/myfollow/getmyfollow",{params:{val:val}})
                 .then(response=>{
                     this.blogs=response.data.bloglist;
                     this.follow_id=response.data.follow_id;

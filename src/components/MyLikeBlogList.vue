@@ -8,8 +8,8 @@
             <div v-for="i in 8" class="card-margin" :key="i">
                 <div>
                     <el-card v-if="blogs[i-1]!=null" class="box-card" style="width: 100%;padding-top: 1px;margin-bottom: 25px;position: relative">
-                        <div  class="text item" style="cursor: pointer">
-                            <a style="font-size: larger;font-weight: bolder" @click="handleToShowBlog(blogs[i-1].id)">{{blogs[i-1].title}}</a>
+                        <div  class="text item" style="cursor: pointer"@click="handleToShowBlog(blogs[i-1].id)">
+                            <a style="font-size: larger;font-weight: bolder" >{{blogs[i-1].title}}</a>
                             <span  @click="handlewriter(i-1)" style="color: rgba(35,79,171,0.83);cursor: pointer;position: absolute;right:20px">
                                 <el-avatar :src="getavatar(blogs[i-1].id)" style="width: 18px;height: 18px;margin-bottom: -5px"></el-avatar>
                                 <span style="margin-left: 5px">{{blogs[i-1].writer}}</span>
@@ -18,7 +18,7 @@
                             <p>{{blogs[i-1].summary }}</p>
                         </div>
                         <div style="text-align: left;">
-                            <el-tag style="margin-right: 12px" size="mini" v-for="tag in blogs[i-1].tags">{{tag}}</el-tag>
+                            <el-tag style="margin-right: 12px;cursor: pointer" size="mini" v-for="tag in blogs[i-1].tags" @click="$router.push({name:'tags',params:{key:tag}})">{{tag}}</el-tag>
                         </div>
                         <div style="position: relative;width: 100%;text-align: left;margin-top: 5px">
                             <span style="width:100%;font-size: small;color: gray;position: absolute">
@@ -74,6 +74,7 @@
                 this.$axios.get("/mylike/countAll")
                     .then(response=>{this.count=response.data;})
                     .catch(error=>console.log(error));
+                this.$cookies.set('likepage',val)
             },
             handlelike(i){
                 if(this.blogs[i].like==false){
@@ -168,8 +169,13 @@
                 this.$router.push({name:'personal',params:{username:this.blogs[val].writer}})
             }
         },
-        beforeCreate() {
-            this.$axios.get("/mylike/getmylike",{params:{val:1}})
+        created() {
+            let val=1
+            if(this.$cookies.get("likepage")) {
+                val=parseInt(this.$cookies.get("likepage"))
+                this.current_page=val
+            }
+            this.$axios.get("/mylike/getmylike",{params:{val:val}})
                 .then(response=>{
                     this.blogs=response.data;
                 })

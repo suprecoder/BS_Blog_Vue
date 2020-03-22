@@ -7,7 +7,7 @@
             <el-input placeholder="再次输入你的密码" v-model="repsw" show-password style="width: 400px" @keyup.enter.native="register" :disabled="yhmbzc"></el-input><br/><br/>
             <small v-if=istips style="color: red;">{{errortips}}</small><br/>
             <el-button size="medium" type="primary" plain @click="register">注册</el-button><br>
-            <span style="float:right;font-size: small;margin-right: 8px"><a href="/login">返回登录界面</a></span>
+            <span style="float:right;font-size: small;margin-right: 8px"><router-link :to="{path:'login'}">返回登录界面</router-link></span>
         </div>
     </div>
 </template>

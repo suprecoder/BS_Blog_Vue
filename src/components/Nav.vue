@@ -17,7 +17,6 @@
                         <el-menu-item index="1" @click="handleindex">推荐博客</el-menu-item>
                         <el-menu-item index="2" @click="handlemyblog">我的博客</el-menu-item>
                         <el-menu-item index="3" @click="handlemyfollow">关注</el-menu-item>
-                        <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">热榜</a></el-menu-item>
                     </el-menu>
                 </el-col>
 

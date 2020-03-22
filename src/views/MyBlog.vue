@@ -8,6 +8,7 @@
                 </el-col>
                 <el-col :span="7">
                     <optioncard style="position: fixed"></optioncard>
+                    <hottaglist style="position: fixed;margin-top: 180px"></hottaglist>
                 </el-col>
             </el-row>
         </div>
@@ -26,6 +27,7 @@
     import Nav from "@/components/Nav"
     import optioncard from "@/components/OptionCard"
     import MyBlogList from "@/components/MyBlogList"
+    import hottaglist from '@/components/HotTagList'
     export default {
         name: "MyBlog",
         data(){
@@ -38,7 +40,7 @@
         },
 
         components:{
-            Nav,optioncard,MyBlogList,footer2
+            Nav,optioncard,MyBlogList,footer2,hottaglist
         }
     }
 </script>

@@ -84,6 +84,11 @@ const routes = [
     component: () => import('../views/MyBlog.vue')
   },
   {
+    name: 'tags',
+    path: '/tags',
+    component: () => import('../views/Tag.vue')
+  },
+  {
     path: "*", // 此处需特别注意置于最底部
     redirect: "/404"
   }
@@ -98,7 +103,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   axios.get("islogin").then(response=>{
     console.log(response)
-    if(response.status==200 && response.data.data!='reject' || to.name=='login'){
+    if(response.status==200 && response.data.data!='reject' || to.name=='login' || to.path=='/register'){
       next()
     }
     else{
@@ -113,6 +118,9 @@ router.beforeEach((to, from, next) => {
         })
         //this.$router.push("/login")
         console.log("status:"+error)})
+
+
+
   // //用你的方式获取登录的用户信息
   // let username = this.$cookies.get("username")
   // if(username || to.name === 'login'){

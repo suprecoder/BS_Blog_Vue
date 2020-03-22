@@ -2,10 +2,10 @@
     <div>
         <el-carousel height="350px" style="width: 80%;margin-left: 10%">
             <el-carousel-item v-for="item in data" :key="item.liaocc" style="height:100%;width: 100%;">
-                <a href="/personal">
+                <router-link :to="{path:'/showblog/'+item.id}">
                     <img :src=item.imageurl style="width: 100%;height: 100%;"></img>
                     <h3 class="small">{{ item.liaocc }}</h3>
-                </a>
+                </router-link>
             </el-carousel-item>
          </el-carousel>
     </div>
@@ -18,11 +18,13 @@
             return {
                 data:[
                     {
-                        liaocc:"大四学生发明文言文编程语言，脑洞新奇",
+                        id:1,
+                        liaocc:"JVM学习笔记———运行时数据区",
                         imageurl:"https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X2pwZy9QbjRTbTBSc0F1aFhMc0ppYlhmUE45SThSaWJYYzBXcVYwMGNteHNpYlBLbFYwV0dvQW5lb0VldVVJcUJkSlB2WG1nNmlheFpJZzRpYjAycmlhSGliZVkwUXY3ZmcvNjQw?x-oss-process=image/format,png"
                     },
                     {
-                        liaocc:"2 亿像素手机 2020 年诞生！",
+                        id:2,
+                        liaocc:"Spring Boot从入门到放弃-整合Mybatis",
                         imageurl:"http://5b0988e595225.cdn.sohucs.com/q_70,c_zoom,w_640/images/20171218/a73e26094b7e4d96a4ab3e6e503056a0.jpeg"
                     }
                 ]
