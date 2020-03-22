@@ -4,7 +4,7 @@
             <el-form-item>
                 <el-upload
                         class="avatar-uploader"
-                        action="http://localhost:8081/api/personal/upload"
+                        action="http://101.37.84.109:8081/api/personal/upload"
                         :show-file-list="false"
                         :with-credentials='true'
                         :on-success="handleAvatarSuccess"
@@ -25,13 +25,13 @@
             return{
                 imageUrl: '',
                 fresh:1,
-                img:'http://localhost:8081/api/personal/getmyavatar',
+                img:'http://101.37.84.109:8081/api/personal/getmyavatar',
             }
         },
         methods:{
             handleAvatarSuccess(res, file) {
                 //  this.imageUrl = URL.createObjectURL(file.raw);
-                this.img='http://localhost:8081/api/personal/getmyavatar'+'?'+new Date()
+                this.img='http://101.37.84.109:8081/api/personal/getmyavatar'+'?'+new Date()
 
             },
             onSubmit() {

@@ -57,10 +57,10 @@
         methods:{
             getavatar(username){
                 if(username){
-                    return 'http://localhost:8081/api/personal/getavatarbyname/'+username
+                    return 'http://101.37.84.109:8081/api/personal/getavatarbyname/'+username
                 }
                 else{
-                    return 'http://localhost:8081/api/personal/getmyavatar'
+                    return 'http://101.37.84.109:8081/api/personal/getmyavatar'
                 }
             },
             publish(){

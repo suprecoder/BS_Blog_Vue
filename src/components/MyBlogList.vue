@@ -67,7 +67,7 @@
                 this.$router.push({ name: 'showblog', params: { blogid: id }})
             },
             getavatar(val){
-                return 'http://localhost:8081/api/personal/getavatar/'+val
+                return 'http://101.37.84.109:8081/api/personal/getavatar/'+val
             },
             handlewriter(val){
                 this.$router.push({name:'personal',params:{username:this.blogs[val].writer}})
