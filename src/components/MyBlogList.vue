@@ -81,6 +81,7 @@
                             this.count=response.data.num
                         })
                         .catch(error=>console.log(error));
+                    this.$cookies.set("searchpage",val)
                     return
                 }
                 this.$axios.get("/myblog/getblogs",{params:{val:val}})
@@ -198,11 +199,12 @@
         created() {
 
             let val=1
-            if(this.$cookies.get("mypage")) {
-                val=parseInt(this.$cookies.get("mypage"))
-                this.current_page=val
-            }
             if(this.$route.path=='/search'){
+
+                if(this.$cookies.get("searchpage")) {
+                    val=parseInt(this.$cookies.get("searchpage"))
+                    this.current_page=val
+                }
                 this.head="搜索结果"
                 this.$axios.get("/search",{params:{querystring:this.$route.query.querystring,val:val}})
                     .then(response=>{
@@ -212,8 +214,12 @@
                     .catch(error=>console.log(error));
                 return
             }
+            if(this.$cookies.get("mypage")) {
+                val=parseInt(this.$cookies.get("mypage"))
+                this.current_page=val
+            }
             this.head="我的博客"
-            this.$axios.get("/myblog/getblogs",{params:{val:1}})
+            this.$axios.get("/myblog/getblogs",{params:{val:val}})
                 .then(response=>{
                     this.blogs=response.data;
                 })
