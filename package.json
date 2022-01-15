@@ -11,7 +11,7 @@
     "core-js": "^3.4.3",
     "element-ui": "^2.13.0",
     "gulp": "^4.0.2",
-    "marked": "^0.8.0",
+    "marked": "^4.0.10",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.5",
     "vue-cookies": "^1.5.13",
